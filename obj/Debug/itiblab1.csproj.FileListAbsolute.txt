@@ -1,0 +1,6 @@
+c:\users\keyf\documents\visual studio 2013\Projects\itiblab1\itiblab1\bin\Debug\itiblab1.exe.config
+C:\Users\keyf\documents\visual studio 2013\Projects\itiblab1\itiblab1\obj\Debug\itiblab1.csprojResolveAssemblyReference.cache
+C:\Users\keyf\documents\visual studio 2013\Projects\itiblab1\itiblab1\bin\Debug\itiblab1.exe
+C:\Users\keyf\documents\visual studio 2013\Projects\itiblab1\itiblab1\bin\Debug\itiblab1.pdb
+C:\Users\keyf\documents\visual studio 2013\Projects\itiblab1\itiblab1\obj\Debug\itiblab1.exe
+C:\Users\keyf\documents\visual studio 2013\Projects\itiblab1\itiblab1\obj\Debug\itiblab1.pdb
