@@ -16,7 +16,7 @@ namespace itiblab1
             double net = 0;
             for (int i = 0; i < 4; i++)
             {
-                net = net + w[i] + x[i];
+                net = net + w[i] * x[i];
             }
             return net = net + w[4]; // + w0
         }

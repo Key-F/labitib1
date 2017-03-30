@@ -25,56 +25,64 @@ namespace itiblab1
         static void work(bool islogistic) // Тут все соеденим
         {
             int k = 0; // Счетчик эпох
+            double prost = 1; // Штука для останоки
             List<epoha> Ep = new List<epoha>();
             List<int[]> X = function.getx(4);
             int[] F = function.getF(X);
             double[] dlta = new double[16];
             double[] net1 = new double[16];
-            double[] nextw = new double[5] { 0, 0, 0, 0, 0 }; // Значения для весов следующей эпохи
-            do
-            {
-                if (k > 15) Console.ReadLine();           
-                epoha Ep_ = new epoha(nextw);
-                Ep.Add(Ep_);
-                Ep[k].nomer = k;
-                Ep[k].Y = new int[16];
-                //double[] tempW = Ep[k].W.ToArray();
-                double[] tempW = nextw.ToArray();
-                //double[] tempW = Ep[k].W;  
-                for (int i = 0; i < 16; i++)
+            double[] nextw = new double[5] { 0, 0, 0, 0, 0 }; // Значения для весов следующей эпохи            
+                do
                 {
-                    net1[i] = paramsNS.net(tempW, X[i]);
-                    int outz = paramsNS.Outzn(net1[i]);                  
-                    Ep[k].Y[i] = outz;                                    
-                }
-                Ep[k].E = paramsNS.totalerror(Ep[k].Y, F);
+                    if (k > 15) Console.ReadLine();
+                    epoha Ep_ = new epoha(nextw);
+                    Ep.Add(Ep_);
+                    Ep[k].nomer = k;
+                    Ep[k].Y = new int[16];
+                    //double[] tempW = Ep[k].W.ToArray();
+                    double[] tempW = nextw.ToArray();
+                    //double[] tempW = Ep[k].W;  
+                    for (int i = 0; i < 16; i++)
+                    {
+                        net1[i] = paramsNS.net(tempW, X[i]);
+                        int outz = paramsNS.Outzn(net1[i]);
+                        Ep[k].Y[i] = outz;
+                    }
+                    Ep[k].E = paramsNS.totalerror(Ep[k].Y, F);
 
-                if (Ep[k].E != 0)
-                {
-                    //epoha Epnext = new epoha(tempW, Ep[k].E);
-                     //epoha Epnext = new epoha(Ep[k].W, Ep[k].E);
-                    // Epnext.W = new double[5];
-                     for (int i = 0; i < 16; i++)
-                {
-                    net1[i] = paramsNS.net(tempW, X[i]);
-                    int outz = paramsNS.Outzn(net1[i]);
-                    
-                    dlta[i] = paramsNS.delta(F[i], Ep[k].Y[i]);
+                    if (Ep[k].E != 0)
+                    {
+                        //epoha Epnext = new epoha(tempW, Ep[k].E);
+                        //epoha Epnext = new epoha(Ep[k].W, Ep[k].E);
+                        // Epnext.W = new double[5];
+                        for (int i = 0; i < 16; i++)
+                        {
+                            net1[i] = paramsNS.net(tempW, X[i]);
+                            int outz = paramsNS.Outzn(net1[i]);
+
+                            dlta[i] = paramsNS.delta(F[i], Ep[k].Y[i]);
 
 
-                    nextw = paramsNS.pereshetW(tempW, X[i], net1[i], 0.3, dlta[i], islogistic);
-                    //double[] bb = paramsNS.pereshetW(Epnext.W, X[i], net1, 0.3, dlta, islogistic);
-                    
-                }
+                            nextw = paramsNS.pereshetW(tempW, X[i], net1[i], 0.3, dlta[i], islogistic);
+                            //double[] bb = paramsNS.pereshetW(Epnext.W, X[i], net1, 0.3, dlta, islogistic);
+
+                        }
+                        //Ep[k].print();
+                        prost = Ep[k].E;
+                        
+
+                        //Ep.Add(Epnext);
+                        // double[] w = paramsNS.pereshetW(Ep[k].W, X[i], );
+                    }
                     Ep[k].print();
                     k++;
-                    //Ep.Add(Epnext);
-                   // double[] w = paramsNS.pereshetW(Ep[k].W, X[i], );
-                }
-                
-            
-               
-            } while (Ep[k-1].E != 0);
+                    
+                    
+
+
+                } while (prost != 0);
+            for (int j = 0; j < k; j++)
+                Ep[j].print();
         }
     
    
