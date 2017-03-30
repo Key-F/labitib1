@@ -19,6 +19,7 @@ namespace itiblab1
            // List<int[]> X = function.getx(4);
             //int[] F = function.getF(X);
             work(false);
+            //work(true);
             Console.ReadLine();
         }
          
@@ -68,12 +69,13 @@ namespace itiblab1
 
                         }
                         //Ep[k].print();
-                        prost = Ep[k].E;
+                        
                         
 
                         //Ep.Add(Epnext);
                         // double[] w = paramsNS.pereshetW(Ep[k].W, X[i], );
                     }
+                    prost = Ep[k].E;
                     Ep[k].print();
                     k++;
                     
@@ -81,8 +83,7 @@ namespace itiblab1
 
 
                 } while (prost != 0);
-            for (int j = 0; j < k; j++)
-                Ep[j].print();
+            
         }
     
    
