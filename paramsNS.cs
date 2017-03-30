@@ -37,7 +37,7 @@ namespace itiblab1
             return t - y;
         }
 
-        public static double deltaporog(double n, double delta, double x)
+        public static double deltaporog(double n, double delta, int x)
         {
             return n * delta * x;
         }
@@ -45,21 +45,30 @@ namespace itiblab1
         public static  double[] pereshetW(double[] w, int[] x, double net_, double nu, double delta_, bool islog)
         {
             //double[] w = w1.ToArray();
-            
+
             if (islog == true)
                 for (int i = 0; i < w.Length; i++)
                 {
                     if (i == x.Count()) w[i] = w[i] + deltalogist(nu, delta_, net_, 1); // Последний будет для w0
                     else
-                    w[i] = w[i] + deltalogist(nu, delta_, net_, x[i]);
+                        w[i] = w[i] + deltalogist(nu, delta_, net_, x[i]);
                 }
             else
-                for (int i = 0; i < w.Length; i++)
-                {
-                    if (i == x.Count()) w[i] = w[i] + deltaporog(nu, delta_, 1); // Последний будет для w0
-                    else
+            {
+                /*  for (int i = 0; i < w.Length; i++)
+                  {
+                      if (i == x.Count()) w[i] = w[i] + deltaporog(nu, delta_, 1); // Последний будет для w0
+                      else
+                      w[i] = w[i] + deltaporog(nu, delta_, x[i]);
+                  } */
+                for (int i = 0; i < w.Length - 1; i++)
+
+
                     w[i] = w[i] + deltaporog(nu, delta_, x[i]);
-                }
+                w[4] = w[4] + deltaporog(nu, delta_, 1);
+
+            }
+            
             return w;
         }
         public static double totalerror(int[] Y, int[] F)

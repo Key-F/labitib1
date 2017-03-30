@@ -28,30 +28,24 @@ namespace itiblab1
             List<epoha> Ep = new List<epoha>();
             List<int[]> X = function.getx(4);
             int[] F = function.getF(X);
+            double[] dlta = new double[16];
+            double[] net1 = new double[16];
             double[] nextw = new double[5] { 0, 0, 0, 0, 0 }; // Значения для весов следующей эпохи
             do
             {
-                
-                //if (k > 15) Console.ReadLine();
-                //if (Ep.Capacity < 1)
-                /*{
-                    epoha Ep_ = new epoha();
-                    Ep.Add(Ep_);
-                    Ep[0].W = new double[5] { 0, 0, 0, 0, 0 };
-                }*/
-                    epoha Ep_ = new epoha(nextw);
-                    Ep.Add(Ep_);
+                if (k > 15) Console.ReadLine();           
+                epoha Ep_ = new epoha(nextw);
+                Ep.Add(Ep_);
                 Ep[k].nomer = k;
                 Ep[k].Y = new int[16];
-                double[] tempW = Ep[k].W.ToArray(); 
+                //double[] tempW = Ep[k].W.ToArray();
+                double[] tempW = nextw.ToArray();
                 //double[] tempW = Ep[k].W;  
                 for (int i = 0; i < 16; i++)
                 {
-                    double net1 = paramsNS.net(tempW, X[i]);
-                    int outz = paramsNS.Outzn(net1);
-                    
-                    Ep[k].Y[i] = outz;
-                    double dlta = paramsNS.delta(F[i], Ep[k].Y[i]);                  
+                    net1[i] = paramsNS.net(tempW, X[i]);
+                    int outz = paramsNS.Outzn(net1[i]);                  
+                    Ep[k].Y[i] = outz;                                    
                 }
                 Ep[k].E = paramsNS.totalerror(Ep[k].Y, F);
 
@@ -62,13 +56,13 @@ namespace itiblab1
                     // Epnext.W = new double[5];
                      for (int i = 0; i < 16; i++)
                 {
-                    double net1 = paramsNS.net(tempW, X[i]);
-                    int outz = paramsNS.Outzn(net1);
+                    net1[i] = paramsNS.net(tempW, X[i]);
+                    int outz = paramsNS.Outzn(net1[i]);
                     
-                    double dlta = paramsNS.delta(F[i], Ep[k].Y[i]);
+                    dlta[i] = paramsNS.delta(F[i], Ep[k].Y[i]);
 
 
-                    nextw = paramsNS.pereshetW(tempW, X[i], net1, 0.3, dlta, islogistic);
+                    nextw = paramsNS.pereshetW(tempW, X[i], net1[i], 0.3, dlta[i], islogistic);
                     //double[] bb = paramsNS.pereshetW(Epnext.W, X[i], net1, 0.3, dlta, islogistic);
                     
                 }
