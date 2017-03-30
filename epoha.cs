@@ -9,7 +9,6 @@ namespace itiblab1
     class epoha
     {
         public int nomer;
-        //public int[] X; // Входной сигнал
         public int[] Y; // Выходной сигнал
         public double[] W; // Вектор весов
         public double E; // Суммарная ошибка
@@ -23,11 +22,32 @@ namespace itiblab1
              E = 0; 
         }*/
         public epoha() { }
+       
+
+        public void print() 
+        {
+            Console.WriteLine("Номер эпохи:" + nomer);
+            Console.Write("Y: ");
+            for (int i = 0; i < Y.Length; i++) Console.Write(Convert.ToString(Y[i]) + "  ");
+            Console.WriteLine();
+            Console.Write("W: ");
+            for (int i = 0; i < W.Length; i++) Console.Write(Convert.ToString(W[i]) + "  ");
+            Console.WriteLine();
+            Console.WriteLine("E: " + E);
+        }
     
+        public epoha(double[] w, double e)
+        {
+            E = e;
+            W = w.ToArray(); 
+           
+        }
         public epoha(double[] w)
         {
-            double[] W = w.ToArray(); ;
-           
+
+            W = w.ToArray(); 
+
         }
     }
 }
+

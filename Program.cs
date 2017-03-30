@@ -19,25 +19,32 @@ namespace itiblab1
            // List<int[]> X = function.getx(4);
             //int[] F = function.getF(X);
             work(false);
+            Console.ReadLine();
         }
          
         static void work(bool islogistic) // Тут все соеденим
         {
             int k = 0; // Счетчик эпох
             List<epoha> Ep = new List<epoha>();
-            //Ep[0].W = new double[5] { 0, 0, 0, 0, 0 };
-            //int E = 1; // Пусть пока будет 1
             List<int[]> X = function.getx(4);
             int[] F = function.getF(X);
+            double[] nextw = new double[5] { 0, 0, 0, 0, 0 }; // Значения для весов следующей эпохи
             do
             {
-                epoha Ep_ = new epoha();
                 
-                Ep.Add(Ep_);
-                Ep[0].W = new double[5] { 0, 0, 0, 0, 0 };
+                //if (k > 15) Console.ReadLine();
+                //if (Ep.Capacity < 1)
+                /*{
+                    epoha Ep_ = new epoha();
+                    Ep.Add(Ep_);
+                    Ep[0].W = new double[5] { 0, 0, 0, 0, 0 };
+                }*/
+                    epoha Ep_ = new epoha(nextw);
+                    Ep.Add(Ep_);
                 Ep[k].nomer = k;
                 Ep[k].Y = new int[16];
-                double[] tempW = Ep[k].W;  
+                double[] tempW = Ep[k].W.ToArray(); 
+                //double[] tempW = Ep[k].W;  
                 for (int i = 0; i < 16; i++)
                 {
                     double net1 = paramsNS.net(tempW, X[i]);
@@ -46,12 +53,13 @@ namespace itiblab1
                     Ep[k].Y[i] = outz;
                     double dlta = paramsNS.delta(F[i], Ep[k].Y[i]);                  
                 }
-                Ep[k].E = paramsNS.totalerror(Ep_.Y, F);
+                Ep[k].E = paramsNS.totalerror(Ep[k].Y, F);
 
                 if (Ep[k].E != 0)
                 {
-                     epoha Epnext = new epoha(Ep[k].W);
-                     Epnext.W = new double[5];
+                    //epoha Epnext = new epoha(tempW, Ep[k].E);
+                     //epoha Epnext = new epoha(Ep[k].W, Ep[k].E);
+                    // Epnext.W = new double[5];
                      for (int i = 0; i < 16; i++)
                 {
                     double net1 = paramsNS.net(tempW, X[i]);
@@ -60,22 +68,19 @@ namespace itiblab1
                     double dlta = paramsNS.delta(F[i], Ep[k].Y[i]);
 
 
-                    double[] bb = paramsNS.pereshetW(Epnext.W, X[i], net1, 0.3, dlta, islogistic);
+                    nextw = paramsNS.pereshetW(tempW, X[i], net1, 0.3, dlta, islogistic);
+                    //double[] bb = paramsNS.pereshetW(Epnext.W, X[i], net1, 0.3, dlta, islogistic);
                     
                 }
+                    Ep[k].print();
                     k++;
-                    Ep.Add(Epnext);
+                    //Ep.Add(Epnext);
                    // double[] w = paramsNS.pereshetW(Ep[k].W, X[i], );
                 }
+                
             
                
-
-
-                    k++;
-               // Ep.Add(Ep_);
-
-
-            } while (Ep[k].E != 0);
+            } while (Ep[k-1].E != 0);
         }
     
    
