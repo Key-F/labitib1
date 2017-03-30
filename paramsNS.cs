@@ -28,6 +28,7 @@ namespace itiblab1
             else 
                 return 0;             
         }
+       
         public static double func(double net)
         {
             return 1 / (1 + Math.Exp(-net));
@@ -47,12 +48,19 @@ namespace itiblab1
             //double[] w = w1.ToArray();
 
             if (islog == true)
-                for (int i = 0; i < w.Length; i++)
+            {
+                /*for (int i = 0; i < w.Length; i++)
                 {
                     if (i == x.Count()) w[i] = w[i] + deltalogist(nu, delta_, net_, 1); // Последний будет для w0
                     else
                         w[i] = w[i] + deltalogist(nu, delta_, net_, x[i]);
-                }
+                } */
+                for (int i = 0; i < w.Length - 1; i++)
+
+
+                    w[i] = w[i] + deltalogist(nu, delta_, net_, x[i]);
+                w[4] = w[4] + deltalogist(nu, delta_, net_, 1);
+            }
             else
             {
                 /*  for (int i = 0; i < w.Length; i++)
@@ -80,7 +88,7 @@ namespace itiblab1
         }
         public static double deltalogist(double n, double delta, double net, double x)
         {
-             return n * delta * Outzn(net) * (1 - Outzn(net)) * x; // Производная от нашей логистической ФА
+             return n * delta * func(net) * (1 - func(net)) * x; // Производная от нашей логистической ФА
         }
 
     }

@@ -18,6 +18,7 @@ namespace itiblab1
            // Ep[0].W = new double[5] { 0, 0, 0, 0, 0 };
            // List<int[]> X = function.getx(4);
             //int[] F = function.getF(X);
+            work(true);
             work(false);
             //work(true);
             Console.ReadLine();
@@ -35,7 +36,7 @@ namespace itiblab1
             double[] nextw = new double[5] { 0, 0, 0, 0, 0 }; // Значения для весов следующей эпохи            
                 do
                 {
-                    if (k > 15) Console.ReadLine();
+                    //if (k > 15) Console.ReadLine();
                     epoha Ep_ = new epoha(nextw);
                     Ep.Add(Ep_);
                     Ep[k].nomer = k;
