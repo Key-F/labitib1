@@ -34,6 +34,7 @@ namespace itiblab1
             for (int i = 0; i < W.Length; i++) Console.Write(Convert.ToString(W[i]) + "  ");
             Console.WriteLine();
             Console.WriteLine("E: " + E);
+            Console.WriteLine();
         }
     
         public epoha(double[] w, double e)

@@ -44,6 +44,7 @@
     <Compile Include="epoha.cs" />
     <Compile Include="function.cs" />
     <Compile Include="paramsNS.cs" />
+    <Compile Include="PereborVariantov.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

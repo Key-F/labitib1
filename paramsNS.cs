@@ -82,7 +82,7 @@ namespace itiblab1
         public static double totalerror(int[] Y, int[] F)
         {
             double e = 0;
-            for (int i = 0; i < Y.Length; i++) // У Y и F одинаковая длина
+            for (int i = 0; i < F.Length; i++) // У Y и F одинаковая длина
                 if (Y[i] != F[i]) e++;
             return e;
         }
