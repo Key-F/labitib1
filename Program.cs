@@ -77,11 +77,11 @@ namespace itiblab1
             do 
             {
                 //kolvektorov++;
-                kolvektorov = 2;
+                kolvektorov = 4;
                 int k = 0; // Счетчик эпох
                 //List<int[][]> combination = new List<int[][]>(); // Список, хранящий текущую комбинацию аргументов + их номер  
                 //combination = function.getx2(kolvektorov, 16); // получаем набор векторов, перебрать все варианты в kolvektorov из 16
-                int[] combination = new int[2] { 0, 7 }; // Получаем массив индексов наборов, которые будем использовать
+                int[] combination = new int[4] { 1, 7, 9, 11 }; // Получаем массив индексов наборов, которые будем использовать
             
                 List<epoha> Ep = new List<epoha>();
             double[] dlta = new double[kolvektorov];
@@ -93,7 +93,7 @@ namespace itiblab1
                 epoha Ep_ = new epoha(nextw);
                 Ep.Add(Ep_);
                 Ep[k].nomer = k;
-                Ep[k].Y = new int[16];
+                Ep[k].Y = new int[kolvektorov];
                 
                 double[] tempW = nextw.ToArray();
                  
