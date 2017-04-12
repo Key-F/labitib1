@@ -14,7 +14,14 @@ namespace itiblab1
             List<epoha> E = new List<epoha>();
             //work(true);
             //E = work(false);
-            perebor(false);
+            int[] curN; // массив для получения результатов
+            PereborVariantov v = new PereborVariantov(1, 4);
+            while (v.GetNext(out curN)) // получили в curN значения индексов
+            {
+                for (int i = 0; i < curN.Length; i++) Console.Write(curN[i] + "  ");
+                Console.WriteLine();
+            }
+            //perebor(false);
             Console.ReadLine();
         }
         
@@ -77,11 +84,11 @@ namespace itiblab1
             do 
             {
                 //kolvektorov++;
-                kolvektorov = 4;
+                kolvektorov = 6;
                 int k = 0; // Счетчик эпох
                 //List<int[][]> combination = new List<int[][]>(); // Список, хранящий текущую комбинацию аргументов + их номер  
                 //combination = function.getx2(kolvektorov, 16); // получаем набор векторов, перебрать все варианты в kolvektorov из 16
-                int[] combination = new int[4] { 1, 7, 9, 11 }; // Получаем массив индексов наборов, которые будем использовать
+                int[] combination = new int[6] { 1, 7, 9, 11, 12, 13 }; // Получаем массив индексов наборов, которые будем использовать
             
                 List<epoha> Ep = new List<epoha>();
             double[] dlta = new double[kolvektorov];
@@ -127,6 +134,7 @@ namespace itiblab1
                 k++;               
                 //if (Ep[k].E == 0) Ep[k].print();
             } while ((k < 200)&&(prost != 0));
+            if (function.test(combination, F, Ep[kolvektorov].W, X) == true) Console.WriteLine("min");
         } while (prost != 0);
 
          }

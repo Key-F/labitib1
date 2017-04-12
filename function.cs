@@ -8,6 +8,32 @@ namespace itiblab1
 {
     class function
     {
+        public static bool test(int[] combination, int[] F, double[] W, List<int[]> X) // combination - номера эпох, на которых обучали
+        {
+            int k = 0;
+            double[] net1 = new double[F.Length];
+            int[] Y = new int[F.Length];
+            double E;
+            for (int i = 0; i < F.Length; i++)
+            {
+                
+                if (i == combination[k])
+                {
+                    Y[i] = F[i]; // Знаем что на этих наборах все норм
+                    if (combination.Length < k)
+                    k++;
+                }
+                else
+                {
+                    net1[i] = paramsNS.net(W, X[i]);
+                    int outz = paramsNS.Outzn(net1[i]);
+                    Y[i] = outz;
+                }
+            }
+            E = paramsNS.totalerror(Y, F);
+            if (E == 0) return true;
+            else return false;
+        }
         public static bool ConvertTntToBool(int x)
         {
             if ((x != 0) && (x != 1)) throw new System.ArgumentException("Значение аргументов не равно 1 или 0");
