@@ -14,13 +14,37 @@ namespace itiblab1
             List<epoha> E = new List<epoha>();
             //work(true);
             //E = work(false);
+            int trigger = 0;
+            int kol = 1;
             int[] curN; // массив для получения результатов
-            PereborVariantov v = new PereborVariantov(1, 4);
-            while (v.GetNext(out curN)) // получили в curN значения индексов
+            do
             {
-                for (int i = 0; i < curN.Length; i++) Console.Write(curN[i] + "  ");
-                Console.WriteLine();
-            }
+                int[] vektor = new int[kol];
+                PereborVariantov v = new PereborVariantov(kol, 16);
+                kol++;
+                while (v.GetNext(out curN)) // получили в curN значения индексов
+                {
+                    for (int i = 0; i < curN.Length; i++)
+                    {
+                        vektor[i] = curN[i];
+                        //perebor(false, curN[i]);
+                       // Console.Write(curN[i] + "  ");
+                    }
+                    if (perebor(false, vektor) == true)
+                    {
+                        int tekkol = kol - 1; // Истинное значение количества
+                    Console.WriteLine("Количество векторов: " + tekkol); 
+                    Console.Write("Номера векторов, на которых обучаем: ");
+                    for (int i = 0; i < vektor.Length; i++)
+                    {
+                        Console.Write(vektor[i] + "  ");
+                    }
+                    Console.WriteLine();
+
+                    trigger = 1;
+                    }
+                }
+            } while (trigger != 1);
             //perebor(false);
             Console.ReadLine();
         }
@@ -67,7 +91,7 @@ namespace itiblab1
                 return Ep;
             
         }
-        static void perebor(bool islogistic)
+        static bool perebor(bool islogistic, int[] vektor)
         {
             int kolvektorov = 0; // Количество векторов, на которых происходит обучение
 
@@ -84,11 +108,11 @@ namespace itiblab1
             do 
             {
                 //kolvektorov++;
-                kolvektorov = 6;
+                kolvektorov = vektor.Length;
                 int k = 0; // Счетчик эпох
                 //List<int[][]> combination = new List<int[][]>(); // Список, хранящий текущую комбинацию аргументов + их номер  
                 //combination = function.getx2(kolvektorov, 16); // получаем набор векторов, перебрать все варианты в kolvektorov из 16
-                int[] combination = new int[6] { 1, 7, 9, 11, 12, 13 }; // Получаем массив индексов наборов, которые будем использовать
+                int[] combination = vektor; // Получаем массив индексов наборов, которые будем использовать
             
                 List<epoha> Ep = new List<epoha>();
             double[] dlta = new double[kolvektorov];
@@ -130,11 +154,20 @@ namespace itiblab1
                     
                 }
                 prost = Ep[k].E;
-                Ep[k].print();
+                //Ep[k].print();
                 k++;               
                 //if (Ep[k].E == 0) Ep[k].print();
             } while ((k < 200)&&(prost != 0));
-            if (function.test(combination, F, Ep[kolvektorov].W, X) == true) Console.WriteLine("min");
+            
+              
+               
+            if (function.test(combination, F, Ep[k-1].W, X) == true)
+            {
+                Ep[k-1].print();
+                return true;
+
+            }
+            else return false;
         } while (prost != 0);
 
          }
